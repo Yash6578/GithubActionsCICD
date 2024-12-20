@@ -26,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: compile
 
-    permissions:
-      contents: read
-      packages: read
-      # To report GitHub Actions status checks
-      statuses: write
+#    permissions:
+#      contents: read
+#      packages: read
+#      # To report GitHub Actions status checks
+#      statuses: write
 
     steps:
       - name: Checkout code
