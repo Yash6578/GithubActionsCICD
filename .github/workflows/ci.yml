@@ -5,23 +5,66 @@ on:
       - master
 
 jobs:
-  demo:
+  compile:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v4.2.2
-      - name: display a success message
-        run: echo "Welcome to GitHub Actions!"
-      - name: display the present working directory
-        run: |
-          pwd
-          ls
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4.6.0
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
         with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '17'
-      - name: execute maven commands
-        run: mvn package
-      - name: display the contents of the folder after maven execution
-        run: ls
+          java-version: 17 # Specify your Java version
+          distribution: 'temurin' # You can use 'zulu', 'adopt', etc.
+          cache: 'maven' # Enable dependency caching for Maven
+
+      - name: Compile the code
+        run: mvn compile
+
+  static-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Run Static Analysis
+        run: mvn checkstyle:check
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Run Unit Tests
+        run: mvn test
+
+  code-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Generate Code Coverage Report
+        run: mvn test jacoco:report
