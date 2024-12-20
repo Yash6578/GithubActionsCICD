@@ -71,11 +71,15 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version> <!-- Or latest version -->
 				<configuration>
+					<source>1.8</source> <!-- Or your JDK version -->
+					<target>1.8</target> <!-- Or your JDK version -->
 					<annotationProcessorPaths>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.30</version> <!-- Ensure it's the latest version -->
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
