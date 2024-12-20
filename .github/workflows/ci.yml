@@ -40,7 +40,7 @@ jobs:
 
   unit-tests:
     runs-on: ubuntu-latest
-    needs: static-analysis
+    needs: compile
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
